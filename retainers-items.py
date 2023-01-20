@@ -7,6 +7,7 @@ import configparser
 # Read the config file
 config = configparser.ConfigParser()
 config.read('config.ini')
+logging.basicConfig(format='%(message)s', level=logging.INFO)
 
 # constants
 CHARACTER_ID = config['DEFAULT']['CHARACTER_ID']
@@ -60,11 +61,10 @@ def fetch_retainers_ids():
 
 def print_duplicates(items):
     for name, retainers in items.items():
-        # print(name)
-        if len(retainers) > 1:
-            print(f'{name} :')
+        if (len(retainers) > 1 or logging.root.level <= logging.DEBUG):
+            logging.info(f'{name} :')
             for retainer in retainers:
-                print(f'  {retainer}')
+                logging.info(f'  {retainer}')
 
 
 def main():
